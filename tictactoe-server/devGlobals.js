@@ -1,0 +1,2 @@
+
+global.gameRooms = require('./gameRooms');
