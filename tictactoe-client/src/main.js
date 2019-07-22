@@ -1,7 +1,6 @@
 import Vue from "vue";
 import App from "./App.vue";
 import store from "./store";
-// import { intialUserLoad, socketListenJoinGameList } from "./user";
 import { initSocketListenHandlers } from "./user";
 
 Vue.config.productionTip = false;
@@ -11,5 +10,4 @@ new Vue({
   render: h => h(App)
 }).$mount("#app");
 
-// intialUserLoad();
 initSocketListenHandlers();

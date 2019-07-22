@@ -6,9 +6,6 @@
       <button v-on:click="joinGame">join a game</button>
       <button v-on:click="changeUsername">change username</button>
     </p>
-
-    <!-- TODO -->
-    <!-- <button>watch a game</button> -->
   </div>
 </template>
 

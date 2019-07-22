@@ -7,8 +7,6 @@
         <button
           @click="acceptRequest(gameRequest.connectionId)"
         >Accept</button>
-        <!-- TODO -->
-        <!-- <button @click="rejectRequest(gameRequest.connectionId)">Reject</button> -->
       </p>
     </div>
   </div>

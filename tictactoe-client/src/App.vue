@@ -14,7 +14,6 @@ import Board from "./components/Board.vue";
 import GetUsername from "./components/GetUsername.vue";
 import GameChoice from "./components/GameChoice.vue";
 import SelectOpponent from "./components/SelectOpponent.vue";
-import RoomChoice from "./components/RoomChoice.vue";
 import JoinGame from "./components/JoinGame.vue";
 
 export default {
@@ -23,7 +22,6 @@ export default {
     Board,
     GetUsername,
     GameChoice,
-    RoomChoice,
     SelectOpponent,
     JoinGame
   },

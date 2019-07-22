@@ -35,13 +35,13 @@
 </template>
 
 <script>
-// TODO write a function which scales font size depending on board_size
 import socket from "../socket";
 
 export default {
   name: "Board",
   props: {},
   data: function() {
+    // TODO make static css
     return { boardSize: 300 };
   },
   computed: {
@@ -52,7 +52,6 @@ export default {
       return this.$store.state.score;
     },
     boardFontSize() {
-      // do i need to round to closest integer?
       return this.boardSize / 4;
     },
     turn() {
@@ -92,10 +91,6 @@ export default {
         return;
       }
       console.log("row,col", row, col);
-
-      // TODO is cell empty, let server side deal with that for now
-
-      // emit row col
       socket.emit("c2s-player-turn", { row, col });
     },
     rematch() {
@@ -115,10 +110,6 @@ export default {
   background-size: contain;
   display: flex;
   flex-direction: column;
-  /* when board_size 500 */
-  /* font-size: 100px; */
-  /* font-size: 50px; */
-
   margin-left: auto;
   margin-right: auto;
 }

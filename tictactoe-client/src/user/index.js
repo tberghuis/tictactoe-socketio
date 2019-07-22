@@ -13,20 +13,16 @@ const socketListenJoinGameList = () => {
 // instead of exposing another users connectionId
 const socketListenJoinGameRequests = () => {
   // be lazy, server can send whole list on any change?
-  // TODO, use event naming convention for all socket events
   socket.on("s2c-join-game-request-list", joinGameRequestList => {
     console.log(
       "TCL: socketListenJoinGameRequests -> joinGameRequestList",
       joinGameRequestList
     );
-    // TODO
     store.state.joinGameRequestList = joinGameRequestList;
   });
 };
 
 const socketListenStartGame = () => {
-  // be lazy, server can send whole list on any change?
-  // TODO, use event naming convention for all socket events
   socket.on(
     "s2c-start-game",
     ({ opponentUsername, turn, playerSymbol, score }) => {
