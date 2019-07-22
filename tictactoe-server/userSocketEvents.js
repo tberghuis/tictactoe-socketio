@@ -1,7 +1,3 @@
-// naming is hard.... can fix name of this file later
-
-// timestamp uuid
-
 const connectionIdToUsername = require("./connectionIdToUsername");
 const {
   GameRoom,
@@ -23,7 +19,6 @@ module.exports = socket => {
       ack("username-invalid");
       return;
     }
-
     connectionIdToUsername[socket.id] = username;
     ack("username-valid");
     // TODO filter connectionIdToUsername length > 0
@@ -33,14 +28,12 @@ module.exports = socket => {
   });
 
   socket.on("create-game", ack => {
-    // if real app need to restrict user can only create one game at a time
-    // const gameId = uuid();
-
+    // if real app need to restrict user can only create one game at a time (authorisation)
     const gameRoom = new GameRoom();
     gameRooms[gameRoom.gameId] = gameRoom;
     gameRoom.player1 = socket.id;
 
-    // do i even need ack if sending no data?
+    // redundant?
     ack("game-created");
 
     io.to("join-game-list-subscribers").emit(
@@ -193,8 +186,6 @@ module.exports = socket => {
     }
     // is it a draw
     else if (!board.flat().includes("")) {
-      console.log("draw");
-      // emit draw
       draw = true;
       gameRooms[gameId].gameFinished = true;
     }
@@ -218,19 +209,7 @@ module.exports = socket => {
         : null;
     };
 
-    // refactoring would have made this less painful
-    // const scorePlayer1 = `(X) ${gameRooms[gameId].score[player1]} : ${
-    //   gameRooms[gameId].score[player2]
-    // } (O)`;
-    // const scorePlayer2 = `(O) ${gameRooms[gameId].score[player2]} : ${
-    //   gameRooms[gameId].score[player1]
-    // } (X)`;
-
-    // #willitblend
-
-    // these to emit gameResult = null | WINNER | LOSER | DRAW depending on which player
-
-    // refactor so server calcs generic result and client calcs if they are
+    // should refactor so server calcs generic result and client calcs if they are
     // the winner or not
     // will probably need uuids for players
     io.to(player1).emit("s2c-update-game", {
@@ -250,17 +229,14 @@ module.exports = socket => {
 
   socket.on("c2s-rematch", () => {
     console.log("TCL: c2s-rematch");
-    // find game
+
     const gameRoom = getGameRoom(socket.id);
-    // set game rematch[socket.id] = true
+
     gameRoom.rematch[socket.id] = true;
-    // if rematch[player1] && reamtch[player2]
-    // emit startgame with game score
 
     const { rematch, player1, player2 } = gameRoom;
 
     if (rematch[player1] && rematch[player2]) {
-      // emit
       console.log("rematch");
 
       // reset state in gameRoom
@@ -274,7 +250,6 @@ module.exports = socket => {
       gameRoom.player1 = player2;
       gameRoom.player2 = player1;
 
-      // TODO add score
       io.to(gameRoom.player1).emit("s2c-start-game", {
         opponentUsername: connectionIdToUsername[gameRoom.player2],
         turn: true,
@@ -292,15 +267,10 @@ module.exports = socket => {
 
   socket.on("c2s-exit", () => {
     const gameRoom = getGameRoom(socket.id);
-    // TODO delete gameRoom from gameRooms
     delete gameRooms[gameRoom.gameId];
-
     io.to(gameRoom.player1).emit("s2c-exit-game");
     io.to(gameRoom.player2).emit("s2c-exit-game");
   });
-
-  // TODO disconnect, remove from connectionIdToUsername
-  // emit to game opponents exit
 
   socket.on("disconnect", () => {
     console.log("disconnect", socket.id);

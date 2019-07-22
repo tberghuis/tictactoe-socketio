@@ -1,6 +1,3 @@
-// any reason to use a class if a singleton?
-// no
-
 const uuid = require("uuid/v1");
 const connectionIdToUsername = require("./connectionIdToUsername");
 
@@ -11,21 +8,8 @@ const gameRooms = {};
 // matched unmatched will be derived,
 // if slow then add state to data structure
 
-// data structure
-// I can see why typescript is good
-/*
-const gameRooms = {
-  <game id>: {
-    player1: <connection id>,
-    player2: null | <connection id>,
-    gameRequestList: [<connection id>, ...]
-  }
-};
-*/
-
 class GameRoom {
   constructor() {
-
     this.gameId = uuid();
 
     // could refactor as
@@ -41,10 +25,7 @@ class GameRoom {
     this.gameFinished = false;
     // e.g. [rematch[player1]=true,rematch[player2]=undefined]
     this.rematch = {};
-    // TODO
     this.score = {};
-    // TODO
-    // this.spectators = []
   }
 }
 
