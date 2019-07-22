@@ -90,7 +90,6 @@ export default {
       if (!this.turn) {
         return;
       }
-      console.log("row,col", row, col);
       socket.emit("c2s-player-turn", { row, col });
     },
     rematch() {

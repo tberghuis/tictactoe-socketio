@@ -48,7 +48,6 @@ module.exports = socket => {
   });
 
   socket.on("c2s-join-game-request", gameId => {
-    console.log("TCL: gameId", gameId);
     gameRooms[gameId].gameRequestList.push({
       connectionId: socket.id,
       username: connectionIdToUsername[socket.id]
@@ -105,18 +104,14 @@ module.exports = socket => {
 
   // this is doing it wrong, lets take this as far as i can go
   socket.on("c2s-player-turn", ({ row, col }) => {
-    console.log("TCL: row, col", row, col);
-
     // TODO validate
     // TODO authorised
     // TODO valid move
 
     const gameId = getGameId(socket.id);
-
     if (gameRooms[gameId].gameFinished) {
       return;
     }
-
     const isPlayer1 = gameRooms[gameId].player1 === socket.id;
 
     // stop cheating
@@ -172,16 +167,13 @@ module.exports = socket => {
       didWinCol(2) ||
       didWinDiag()
     ) {
-      console.log("game won");
       player1Won = isPlayer1;
       player2Won = !isPlayer1;
-
       if (player1Won) {
         gameRooms[gameId].score[player1]++;
       } else {
         gameRooms[gameId].score[player2]++;
       }
-
       gameRooms[gameId].gameFinished = true;
     }
     // is it a draw
@@ -228,17 +220,10 @@ module.exports = socket => {
   });
 
   socket.on("c2s-rematch", () => {
-    console.log("TCL: c2s-rematch");
-
     const gameRoom = getGameRoom(socket.id);
-
     gameRoom.rematch[socket.id] = true;
-
     const { rematch, player1, player2 } = gameRoom;
-
     if (rematch[player1] && rematch[player2]) {
-      console.log("rematch");
-
       // reset state in gameRoom
       gameRoom.board = [["", "", ""], ["", "", ""], ["", "", ""]];
       gameRoom.playerTurn = "PLAYER1";
@@ -273,9 +258,7 @@ module.exports = socket => {
   });
 
   socket.on("disconnect", () => {
-    console.log("disconnect", socket.id);
     const gameRoom = getGameRoom(socket.id);
-
     if (!gameRoom) {
       return;
     }

@@ -18,9 +18,6 @@ export default {
       username: ""
     };
   },
-  created: function() {
-    console.log("created");
-  },
   methods: {
     submit: function() {
       const username = this.username;

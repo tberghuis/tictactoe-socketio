@@ -14,10 +14,6 @@ const socketListenJoinGameList = () => {
 const socketListenJoinGameRequests = () => {
   // be lazy, server can send whole list on any change?
   socket.on("s2c-join-game-request-list", joinGameRequestList => {
-    console.log(
-      "TCL: socketListenJoinGameRequests -> joinGameRequestList",
-      joinGameRequestList
-    );
     store.state.joinGameRequestList = joinGameRequestList;
   });
 };
@@ -26,7 +22,6 @@ const socketListenStartGame = () => {
   socket.on(
     "s2c-start-game",
     ({ opponentUsername, turn, playerSymbol, score }) => {
-      console.log("s2c-start-game");
       store.state.opponentUsername = opponentUsername;
       store.state.turn = turn;
       store.state.playerSymbol = playerSymbol;
@@ -37,20 +32,12 @@ const socketListenStartGame = () => {
       store.state.score = score;
       store.state.joinGameRequestList = [];
       store.state.waitingRematchResponse = false;
-
-      console.log("TCL: socketListenUpdateGame -> store.state", store.state);
     }
   );
 };
 
 const socketListenUpdateGame = () => {
   socket.on("s2c-update-game", ({ board, turn, gameResult, score }) => {
-    console.log(
-      "TCL: socketListenUpdateGame -> board, turn, gameResult",
-      board,
-      turn,
-      gameResult
-    );
     store.state.board = board;
     store.state.turn = turn;
     store.state.gameResult = gameResult;

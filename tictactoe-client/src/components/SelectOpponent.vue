@@ -30,7 +30,6 @@ export default {
   },
   methods: {
     acceptRequest(connectionId) {
-      console.log("TCL: acceptRequest -> connectionId", connectionId);
       socket.emit("c2s-accept-join-request", connectionId);
     }
   }
