@@ -1,4 +1,4 @@
-multi player tictactoe game
+# multiplayer tic-tac-toe game
 
 play https://tictactoe-socketio.tomberghuis.site
 
