@@ -2,8 +2,6 @@ multi player tictactoe game
 
 play https://tictactoe-socketio.tomberghuis.site
 
-![](https://raw.githubusercontent.com/tberghuis/tictactoe-socketio/master/assets/screenshot.png | width=300)
-
-<img src="https://raw.githubusercontent.com/tberghuis/tictactoe-socketio/master/assets/screenshot.png" width="300" >
+<img style="border: 1px solid black" src="https://raw.githubusercontent.com/tberghuis/tictactoe-socketio/master/assets/screenshot.png" width="500" >
 
 Tech: Vue, Socket.io
